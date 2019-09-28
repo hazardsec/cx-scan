@@ -48,9 +48,9 @@ class CxService(object):
             if team == CxService.unknown_id_str:
                 raise Exception(" Couldn't find team " + cx_config['team'])        
 
-        #print(team)
+        print(team)
         project = self.get_project_id(team, cx_config['project'])
-        
+        print(project)
         # create project if doesn't exist
         if project == CxService.unknown_id:
             prj = self.cx.create_project_with_default_configuration(name=cx_config['project'], owning_team=team,
@@ -58,10 +58,13 @@ class CxService(object):
             project = prj['id']
             
         remote_source_settings = self.cx.get_remote_source_settings_for_git_by_project_id(project)
-        if 'url' not in remote_source_settings:
-            self.cx.set_remote_source_setting_to_git(project, None, cx_config['base_url'] + cx_config['project'], cx_config['default_branch'])
+        print(remote_source_settings)
+        updated_url = cx_config['base_url'] + cx_config['project'] + cx_config.get('account_params', '')
+        if updated_url != remote_source_settings["url"]:
+            print(updated_url)
+            self.cx.set_remote_source_setting_to_git(project, None, updated_url.strip(), cx_config['branch'])
 
-        self.cx.create_new_scan(project)
+        self.cx.create_new_scan(project, cx_config.get("incremental", False))
 
     @staticmethod
     def get_urls():

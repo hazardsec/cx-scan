@@ -175,7 +175,9 @@ class CxRestClient(object):
                 raise e
         data = {"url": git_url,
                 "branch": branch}
-        data_json = json.dumps(data)        
+        data_json = json.dumps(data)  
+        print("Data = " + data + "\r\n")
+        print("Data JSON = " + data_json + "\r\n")
         return self.send_requests(keyword=keyword, url_sub=url_sub, data=data_json)        
     
     def create_new_scan(self, project_id, is_incremental=False, is_public=True, force_scan=True):
