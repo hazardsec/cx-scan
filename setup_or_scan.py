@@ -49,8 +49,8 @@ else:
     
 if "account" in cx_config.keys():
     account = cx_config["account"]
-    role = cx_config.get("role", "default_role")
-    region = cx_config.get("region", "default_region")
+    role = cx_config.get("role", default_role)
+    region = cx_config.get("region", default_region)
     account_params = "#account=" + account + "#role=" + role + "#region=" + region
     cx_config.update( { "account_params" : account_params } )
     
