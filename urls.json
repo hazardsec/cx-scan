@@ -227,6 +227,10 @@
     "url_suffix":"/sast/scansQueue/{id}",
     "http_method":"PATCH"
   },
+    "delete_scan_by_scan_id":{
+    "url_suffix":"/sast/scans/{id}",
+    "http_method":"DELETE"
+  },
   "add_or_update_a_comment_by_scan_id":{
     "url_suffix":"/sast/scans/{id}",
     "http_method":"PATCH"
