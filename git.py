@@ -90,7 +90,7 @@ if debug:
     print("Role: " + role)
     print("Region: " + region)
 
-# Set up OS commands to run
+# Set up OS commands to run <**Update path to git executable below based on environment**>
 os_commands = 'aws configure set profile.cross-account-role.region ' + region + ' & aws configure set profile.cross-account-role.role_arn arn:aws:iam::' + account + ':role/' + role + ' & aws configure set profile.cross-account-role.credential_source Ec2InstanceMetadata & C:\Git\cmd\git.exe config --global credential.helper "!aws codecommit --profile cross-account-role credential-helper $@">NUL & C:\Git\cmd\git.exe ' + git_args
 
 if debug:
