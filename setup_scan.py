@@ -53,9 +53,11 @@ if "account" in cx_config.keys():
     region = cx_config.get("region", default_region)
     account_params = "#account=" + account + "#role=" + role + "#region=" + region
     cx_config.update( { "account_params" : account_params } )
-    
+
+if "clearqueued" not in cx_config.keys():
+    cx_config.update( { "clearqueued": false } )
+
 cx_config.update( { "base_url" : base_url } )
 
 cx = CxService.CxService("<**CHECKMARX_URL**>/CxRestAPI", "<**USER_FROM_KEYSTORE**>", "<**PASSWORD_FROM_KEYSTORE**>", cx_config)
 cx.start_scan(cx_config)
-
