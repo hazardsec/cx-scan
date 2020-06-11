@@ -55,10 +55,6 @@ class CxRestClient(object):
                                    headers=headers,
                                    url=url, data=data)
             prepped = req.prepare()
-            #print(req.method)
-            #print(req.url)
-            #print(req.headers.items())
-            #print(req.data)
             resp = s.send(prepped)
             if resp.status_code == 200:
                 if headers.get("Accept") == "application/json;v=1.0":
@@ -152,7 +148,7 @@ class CxRestClient(object):
 
     def get_all_scan_details_in_queue(self):
         keyword = "get_all_scan_details_in_queue"
-        return self.send_requests(keyword=keyword)    
+        return self.send_requests(keyword=keyword).json()   
 
     def get_remote_source_settings_for_git_by_project_id(self, id):
         keyword = "get_remote_source_settings_for_git_by_project_id"
@@ -176,8 +172,6 @@ class CxRestClient(object):
         data = {"url": git_url,
                 "branch": branch}
         data_json = json.dumps(data)  
-        print("Data = " + data + "\r\n")
-        print("Data JSON = " + data_json + "\r\n")
         return self.send_requests(keyword=keyword, url_sub=url_sub, data=data_json)        
     
     def create_new_scan(self, project_id, is_incremental=False, is_public=True, force_scan=True):
@@ -196,8 +190,15 @@ class CxRestClient(object):
                                          "zippedSource": (file_name,
                                                           open(zip_path, 'rb'),
                                                           "application/zip")})
-        # print(files)
         headers = self.headers.copy()
         headers.update({"Content-Type": files.content_type})
         return self.send_requests(keyword=keyword, headers=headers, data=files).json()
+        
+    def update_queued_scan_status_by_scan_id(self, id, status="Canceled"):
+        keyword = "update_queued_scan_status_by_scan_id"
+        url_sub = {"pattern": "{id}",
+                   "value": str(id)}
+        data = {"status": str(status)}
+        data_json = json.dumps(data)
+        return self.send_requests(keyword=keyword, url_sub=url_sub, data=data_json)
         
