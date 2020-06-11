@@ -16,6 +16,9 @@ clearqueued = False (default) does not clear queued entries for the current proj
 
 Installation  
 Update git.py to inlcude the proper path to the git binary/executable on the Checkmarx Manager on line 94  
+
 Add git.bat and git.py to a directory on the Checkmarx Manager and configure "Path to GIT client executable" under "Management > Application Settings > General" to point to git.bat (e.g. C:\Git\cmd\git.bat)  
+
 Configure either setup_scan.py or lambda_function.py with environment-specific values by replacing placeholders with format of <\*\*SOME_PLACEHOLDER_DESCRIPTION\*\*>  
+
 If deploying to Lambda, you will also need to include some of the python libraries used (see https://docs.aws.amazon.com/lambda/latest/dg/python-package.html#python-package-dependencies)  
