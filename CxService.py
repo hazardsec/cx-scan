@@ -73,10 +73,10 @@ class CxService(object):
         if remote_source_settings.get('url','') == '' or updated_url != remote_source_settings["url"]:
             self.cx.set_remote_source_setting_to_git(project, None, updated_url.strip(), cx_config['branch'])
             
-        if cx_config.get("clearqueued", False) == True:
-            scan_queue = cx.get_scan_queue_for_project(project)
+        if bool(cx_config.get("clearqueued", False)) == True:
+            scan_queue = self.get_scan_queue_for_project(project)
             for queued_scan in scan_queue:
-                cx.cancel_scan(queued_scan["id"])
+                self.cancel_scan(queued_scan["id"])
 
         self.cx.create_new_scan(project, cx_config.get("incremental", True))
 
