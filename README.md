@@ -22,3 +22,6 @@ Add git.bat and git.py to a directory on the Checkmarx Manager and configure "Pa
 Configure either setup_scan.py or lambda_function.py with environment-specific values by replacing placeholders with format of <\*\*SOME_PLACEHOLDER_DESCRIPTION\*\*>  
 
 If deploying to Lambda, you will also need to include some of the python libraries used (see https://docs.aws.amazon.com/lambda/latest/dg/python-package.html#python-package-dependencies)  
+
+Credits  
+Base files CxRest.py, CxService.py, and urls.json where originally sourced form https://github.com/CxRepositories/cx-lambda, but have been updated/modified to remove some of the unnecessary functionality and to add the functionality required for this project.
